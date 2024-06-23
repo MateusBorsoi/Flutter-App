@@ -8,14 +8,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Githubusers extends StatefulWidget {
-  const Githubusers({super.key});
+class UsuarioGitHub extends StatefulWidget {
+  const UsuarioGitHub({super.key});
 
   @override
-  State<Githubusers> createState() => _GithubusersState();
+  State<UsuarioGitHub> createState() => _UsuarioGitHubState();
 }
 
-class _GithubusersState extends State<Githubusers> {
+class _UsuarioGitHubState extends State<UsuarioGitHub> {
   late final GitHubUsersController _controller;
 
   @override

@@ -1,5 +1,6 @@
 import 'package:appauth/classes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key, required this.title});
@@ -10,8 +11,9 @@ class MenuDrawer extends StatefulWidget {
 }
 
 List<Routes> routes = [
-  const Routes('Início', '/home'),
-  const Routes('Usuarios Github', '/git_users')
+  const Routes('Início', '/', true),
+  const Routes('Usuarios Github', '/git_users', true),
+  const Routes('Detalhes Usuários', '/detalhesUsuario/:username', false)
 ];
 
 class _MenuDrawerState extends State<MenuDrawer> {
@@ -45,12 +47,15 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 itemCount: routes.length,
                 itemBuilder: (context, index) {
                   final route = routes[index];
-                  return ListTile(
-                    title: Text(route.route),
-                    onTap: () {
-                      Navigator.pushNamed(context, route.pathName);
-                    },
-                  );
+                  if (route.show) {
+                    return ListTile(
+                      title: Text(route.route),
+                      onTap: () {
+                        context.go(route.pathName);
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  }
                 })
           ],
         ),

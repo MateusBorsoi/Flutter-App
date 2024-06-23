@@ -1,5 +1,6 @@
 import 'package:appauth/classes/github_user.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class GitHubUserList extends StatefulWidget {
   final GitHubUser user;
@@ -33,7 +34,9 @@ class _GitHubUserListState extends State<GitHubUserList> {
             fontSize: 22,
             fontWeight: FontWeight.bold),
       ),
-      onTap: () {},
+      onTap: () {
+        context.go('/detalhesUsuario/${widget.user.login}');
+      },
     );
   }
 }
