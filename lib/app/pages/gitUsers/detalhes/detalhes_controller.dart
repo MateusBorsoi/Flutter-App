@@ -9,7 +9,6 @@ class DetalhesController extends GetxController {
   GitHubUserModel? get gitHubUser => _githubUser;
 
   final RxBool _isLoading = false.obs;
-
   RxBool get isLoading => _isLoading;
 
   DetalhesController({required this.repository});

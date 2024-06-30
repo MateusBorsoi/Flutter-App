@@ -13,7 +13,7 @@ class MenuDrawer extends StatefulWidget {
 List<Routes> routes = [
   const Routes('Início', '/', true),
   const Routes('Usuarios Github', '/git_users', true),
-  const Routes('Detalhes Usuários', '/detalhesUsuario/:username', false)
+  const Routes('Todos', '/todos', true),
 ];
 
 class _MenuDrawerState extends State<MenuDrawer> {
