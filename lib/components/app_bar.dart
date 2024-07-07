@@ -19,7 +19,7 @@ class _AppDefaultBarState extends State<AppDefaultBar> {
           DropdownButton(
             items: const [],
             onChanged: (value) {},
-            icon:  Icon(Icons.more_vert, color: Theme.of(context).colorScheme.secondary,),
+            icon: Icon(Icons.more_vert, color: Theme.of(context).primaryColor),
           ),
         ],
         leading: Padding(
@@ -27,14 +27,15 @@ class _AppDefaultBarState extends State<AppDefaultBar> {
             child: Builder(builder: (context) {
               return IconButton(
                 onPressed: () => {Scaffold.of(context).openDrawer()},
-                icon: const Icon(Icons.menu_sharp),
+                icon: Icon(Icons.menu_sharp,
+                    color: Theme.of(context).primaryColor),
               );
             })),
         title: Title(
-          color: Colors.red,
+          color: Theme.of(context).colorScheme.secondary,
           child: Text(
             widget.title,
-            selectionColor: Colors.blue,
+           style: Theme.of(context).textTheme.titleLarge,
           ),
         ));
   }

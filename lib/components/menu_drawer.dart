@@ -14,6 +14,7 @@ List<Routes> routes = [
   const Routes('Início', '/', true),
   const Routes('Usuarios Github', '/git_users', true),
   const Routes('Todos', '/todos', true),
+  const Routes('Notes', '/notes', true),
 ];
 
 class _MenuDrawerState extends State<MenuDrawer> {
@@ -35,10 +36,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 )),
             DrawerHeader(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+              decoration:
+                  BoxDecoration(color: Theme.of(context).colorScheme.primary),
               child: Text(
                 widget.title,
-                style: const TextStyle(color: Colors.indigo),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             ListView.builder(

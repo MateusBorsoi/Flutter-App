@@ -1,9 +1,10 @@
 import 'package:appauth/app/pages/gitUsers/detalhes/detalhes.dart';
 import 'package:appauth/app/pages/gitUsers/github_users.dart';
 import 'package:appauth/app/pages/home/home.dart';
+import 'package:appauth/app/pages/notes/notes.dart';
 import 'package:appauth/app/pages/todos/todo/todo.dart';
 import 'package:appauth/app/pages/todos/todos.dart';
-import 'package:appauth/theme/theme_config.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,8 +15,8 @@ class AppAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'App Auth',
-      theme: lightThemeData,
-      darkTheme: darkThemeData,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       routerConfig: _router,
     );
@@ -55,6 +56,12 @@ final GoRouter _router = GoRouter(
           builder: (context, state) {
             final id = state.pathParameters['id']!;
             return Todo(id: id);
+          },
+        ),
+        GoRoute(
+          path: 'notes',
+          builder: (context, state) {
+            return const Notes();
           },
         ),
       ],
