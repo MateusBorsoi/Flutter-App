@@ -1,4 +1,4 @@
-import 'package:appauth/classes/components/notes/notes_form_controller.dart';
+import 'package:appauth/components/notes/notes_form_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,11 +28,11 @@ class _NotesFormState extends State<NotesForm> {
             Obx(
               () => TextField(
                 decoration: InputDecoration(
-                    errorText: notesFormController.tituloErrorText as String,
+                    errorText: notesFormController.tituloErrorText.toString(),
                     border: const OutlineInputBorder(),
                     label: const Text('Título')),
                 onChanged: (value) {
-                  (value) => notesFormController.isValidTitle(value);
+                  notesFormController.handleChangeTitulo(value);
                 },
               ),
             ),
@@ -44,11 +44,11 @@ class _NotesFormState extends State<NotesForm> {
                     maxLines: 5,
                     decoration: InputDecoration(
                         errorText:
-                            notesFormController.descricaoErrorText as String,
+                            notesFormController.descricaoErrorText.toString(),
                         border: const OutlineInputBorder(),
                         label: const Text('Descrição')),
                     onChanged: (value) {
-                      notesFormController.isValidDescricao(value);
+                      notesFormController.handleChangeDescricao(value);
                     },
                   ),
                 )),

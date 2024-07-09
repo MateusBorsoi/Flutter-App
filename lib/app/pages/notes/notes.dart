@@ -1,4 +1,4 @@
-import 'package:appauth/classes/components/notes/notes_form.dart';
+import 'package:appauth/components/notes/notes_form.dart';
 import 'package:appauth/components/app_bar.dart';
 import 'package:appauth/components/menu_drawer.dart';
 import 'package:flutter/material.dart';

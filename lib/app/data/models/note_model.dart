@@ -12,7 +12,7 @@ class NoteModel {
   factory NoteModel.fromMap(Map<String, dynamic> map) {
     return NoteModel(
       id: map['id'],
-      title: map['name'],
+      title: map['title'],
       description: map['description'],
     );
   }
