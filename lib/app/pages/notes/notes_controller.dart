@@ -21,7 +21,7 @@ class NotesController extends GetxController {
 
   NotesController({required this.repository});
 
-  Future<void> getTodosList() async {
+  Future<void> getNotes() async {
     _isLoading.value = true;
     try {
       final response = await repository.getAllNotes();
@@ -35,7 +35,7 @@ class NotesController extends GetxController {
     _isLoading.value = false;
   }
 
-  Future<void> getTodosById(int id) async {
+  Future<void> getNoteById(int id) async {
     _isLoading.value = true;
     try {
       final response = await repository.getNoteById(id);
@@ -49,10 +49,11 @@ class NotesController extends GetxController {
     _isLoading.value = false;
   }
 
-  Future<void> deleteById(int id) async {
+  Future<void> deleteNoteById(int id) async {
     _isRemoving.value = true;
     try {
       await repository.deleteNote(id);
+      _notes.removeWhere((item) => item.id == id);
       Get.snackbar('Sucesso', 'Nota removida com sucesso!',
           colorText: Colors.green);
       _isRemoving.value = false;
