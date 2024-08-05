@@ -5,6 +5,7 @@ import 'package:appauth/components/menu_drawer.dart';
 import 'package:appauth/components/notes/note_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class Notes extends StatefulWidget {
   const Notes({super.key});
@@ -46,7 +47,9 @@ class _NotesState extends State<Notes> {
                   );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.go('/novaNota');
+        },
         child: const Icon(Icons.add),
       ),
     );

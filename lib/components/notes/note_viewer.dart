@@ -22,8 +22,7 @@ class _NotesPageState extends State<NotesPage> {
         style: TextStyle(color: Theme.of(context).colorScheme.secondary),
       ),
       subtitle: Text(
-        widget.note.description ??
-            '${widget.note.description.toString()} - ${widget.note.id.toString()}',
+        widget.note.description ?? widget.note.description.toString(),
         style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontSize: 22,
@@ -43,11 +42,10 @@ class _NotesPageState extends State<NotesPage> {
                 if (widget.note.id != null) {
                   setState(() {
                     widget.controller.deleteNoteById(widget.note.id ?? 0);
-                    
                   });
                 }
               },
-              icon: const Icon(Icons.delete))
+              icon: const Icon(Icons.delete, color: Colors.red))
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:appauth/app/pages/gitUsers/detalhes/detalhes.dart';
 import 'package:appauth/app/pages/gitUsers/github_users.dart';
 import 'package:appauth/app/pages/home/home.dart';
+import 'package:appauth/app/pages/notes/add_nota.dart';
 import 'package:appauth/app/pages/notes/notes.dart';
 import 'package:appauth/app/pages/todos/todo/todo.dart';
 import 'package:appauth/app/pages/todos/todos.dart';
@@ -62,6 +63,12 @@ final GoRouter _router = GoRouter(
           path: 'notes',
           builder: (context, state) {
             return const Notes();
+          },
+        ),
+        GoRoute(
+          path: 'novaNota',
+          builder: (context, state) {
+            return const AddNota();
           },
         ),
       ],
