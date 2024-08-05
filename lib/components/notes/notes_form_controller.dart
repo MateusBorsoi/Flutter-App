@@ -7,8 +7,8 @@ class NotesFormController extends GetxController {
   final NoteRepository _noteRepository = NoteRepository();
   late final TextEditingController tituloController;
   late final TextEditingController descricaoController;
-  final tituloErrorText = ''.obs;
-  final descricaoErrorText = ''.obs;
+  final RxnString tituloErrorText = RxnString();
+  final RxnString descricaoErrorText = RxnString();
 
   RxBool tituloError = false.obs;
   RxBool descricaoError = false.obs;
@@ -27,47 +27,43 @@ class NotesFormController extends GetxController {
     super.onClose();
   }
 
-  bool isValid(String value) {
-    return value.isNotEmpty;
-  }
-
   void handleChangeTitulo(String value) {
     tituloController.text = value;
     if (tituloController.text.isNotEmpty) {
       if (tituloController.text.length < 3) {
         tituloError.value = true;
         tituloErrorText.value = 'Mínimo 3 caractéres';
+        return;
       }
-      return;
     }
     tituloError.value = false;
-    tituloErrorText.value = '';
+    tituloErrorText.value = null;
   }
 
   void handleChangeDescricao(String value) {
     descricaoController.text = value;
     if (descricaoController.text.isNotEmpty) {
-      if (descricaoController.text.length < 3) {
+      if (descricaoController.text.length < 6) {
         descricaoError.value = true;
         descricaoErrorText.value = 'Mínimo 6 caractéres';
+        return;
       }
-    } else {
-      descricaoError.value = false;
-      descricaoErrorText.value = '';
     }
+    descricaoError.value = false;
+    descricaoErrorText.value = null;
   }
 
-  void validade() {
-    if (!isValid(tituloController.text)) {
+  void validate() {
+    if (tituloController.text.isEmpty) {
       tituloError.value = true;
       tituloErrorText.value = 'Campo obrigatório';
-    } else if (!isValid(descricaoController.text)) {
-      descricaoError.value = true;
-      descricaoErrorText.value = 'Campo obrigatório';
-    }
-    if (tituloController.text.length < 3) {
+    } else if (tituloController.text.length < 3) {
       tituloError.value = true;
       tituloErrorText.value = 'Mínimo 3 caractéres';
+    }
+    if (descricaoController.text.isEmpty) {
+      descricaoError.value = true;
+      descricaoErrorText.value = 'Campo obrigatório';
     } else if (descricaoController.text.length < 6) {
       descricaoError.value = true;
       descricaoErrorText.value = 'Mínimo 6 caractéres';
@@ -75,16 +71,28 @@ class NotesFormController extends GetxController {
     }
   }
 
+  void clearValues() {
+    tituloController.clear();
+    descricaoController.clear();
+    tituloErrorText.value = null;
+    descricaoErrorText.value = null;
+    tituloError.value = false;
+    descricaoError.value = false;
+  }
+
   void submitForm() async {
-    validade();
+    validate();
     if (!tituloError.value && !descricaoError.value) {
       try {
         await _noteRepository.insertNote(NoteModel(
             title: tituloController.text,
             description: descricaoController.text));
-        Get.snackbar('Sucesso', 'Nota salva com sucesso!');
+        clearValues();
+        Get.snackbar('Sucesso', 'Nota salva com sucesso!',
+            colorText: Colors.green);
       } catch (err) {
-        Get.snackbar('Erro', 'Falha ao gravar dados, motivo: $err');
+        Get.snackbar('Erro', 'Falha ao gravar dados, motivo: $err',
+            colorText: Colors.red);
       }
     }
   }

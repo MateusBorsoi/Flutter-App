@@ -27,8 +27,9 @@ class _NotesFormState extends State<NotesForm> {
             ),
             Obx(
               () => TextField(
+                controller: notesFormController.tituloController,
                 decoration: InputDecoration(
-                    errorText: notesFormController.tituloErrorText.toString(),
+                    errorText: notesFormController.tituloErrorText.value,
                     border: const OutlineInputBorder(),
                     label: const Text('Título')),
                 onChanged: (value) {
@@ -42,9 +43,9 @@ class _NotesFormState extends State<NotesForm> {
                   () => TextField(
                     minLines: 3,
                     maxLines: 5,
+                    controller: notesFormController.descricaoController,
                     decoration: InputDecoration(
-                        errorText:
-                            notesFormController.descricaoErrorText.toString(),
+                        errorText: notesFormController.descricaoErrorText.value,
                         border: const OutlineInputBorder(),
                         label: const Text('Descrição')),
                     onChanged: (value) {
