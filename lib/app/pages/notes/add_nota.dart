@@ -1,3 +1,4 @@
+import 'package:appauth/classes/enum/notes_enum.dart';
 import 'package:appauth/components/app_bar.dart';
 import 'package:appauth/components/menu_drawer.dart';
 import 'package:appauth/components/notes/notes_form.dart';
@@ -16,6 +17,9 @@ class _AddNotaState extends State<AddNota> {
     return const Scaffold(
         appBar: AppDefaultBar(title: 'Notes'),
         drawer: MenuDrawer(title: 'Notes'),
-        body: NotesForm());
+        body: NotesForm(
+          action: FormAction.gravar,
+          formTitle: 'Cadastrar nota',
+        ));
   }
 }

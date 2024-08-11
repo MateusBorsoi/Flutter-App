@@ -1,9 +1,14 @@
+import 'package:appauth/classes/enum/notes_enum.dart';
 import 'package:appauth/components/notes/notes_form_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NotesForm extends StatefulWidget {
-  const NotesForm({super.key});
+  final String formTitle;
+  final int? id;
+  final FormAction action;
+  const NotesForm(
+      {super.key, this.id, required this.action, required this.formTitle});
 
   @override
   State<NotesForm> createState() => _NotesFormState();
@@ -15,6 +20,10 @@ class _NotesFormState extends State<NotesForm> {
     final NotesFormController notesFormController =
         Get.put(NotesFormController());
 
+    if (widget.action == FormAction.editar) {
+      notesFormController.getDefaultValuesById(widget.id ?? 0);
+    }
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
@@ -22,7 +31,7 @@ class _NotesFormState extends State<NotesForm> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 15),
-              child: Text('Cadastrar nota',
+              child: Text(widget.formTitle,
                   style: Theme.of(context).textTheme.bodyLarge),
             ),
             Obx(
@@ -60,7 +69,7 @@ class _NotesFormState extends State<NotesForm> {
                 child: FilledButton(
                   child: const Text('Salvar'),
                   onPressed: () {
-                    notesFormController.submitForm();
+                    notesFormController.submitForm(widget.action, context);
                   },
                 ),
               ),
