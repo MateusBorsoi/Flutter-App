@@ -5,23 +5,36 @@ import 'package:get/get.dart';
 
 class NotesForm extends StatefulWidget {
   final String formTitle;
+  final FloatingLabelBehavior floatingLabel;
   final int? id;
   final FormAction action;
   const NotesForm(
-      {super.key, this.id, required this.action, required this.formTitle});
+      {super.key,
+      this.id,
+      required this.action,
+      required this.formTitle,
+      required this.floatingLabel});
 
   @override
   State<NotesForm> createState() => _NotesFormState();
 }
 
 class _NotesFormState extends State<NotesForm> {
+  final NotesFormController notesFormController =
+      Get.put(NotesFormController());
+
+  @override
+  void dispose() {
+    notesFormController.clearValues();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final NotesFormController notesFormController =
-        Get.put(NotesFormController());
-
     if (widget.action == FormAction.editar) {
-      notesFormController.getDefaultValuesById(widget.id ?? 0);
+      if (widget.id != null) {
+        notesFormController.getDefaultValuesById(widget.id!);
+      }
     }
 
     return Center(
@@ -38,6 +51,7 @@ class _NotesFormState extends State<NotesForm> {
               () => TextField(
                 controller: notesFormController.tituloController,
                 decoration: InputDecoration(
+                    floatingLabelBehavior: widget.floatingLabel,
                     errorText: notesFormController.tituloErrorText.value,
                     border: const OutlineInputBorder(),
                     label: const Text('Título')),
@@ -54,6 +68,7 @@ class _NotesFormState extends State<NotesForm> {
                     maxLines: 5,
                     controller: notesFormController.descricaoController,
                     decoration: InputDecoration(
+                        floatingLabelBehavior: widget.floatingLabel,
                         errorText: notesFormController.descricaoErrorText.value,
                         border: const OutlineInputBorder(),
                         label: const Text('Descrição')),
@@ -69,7 +84,8 @@ class _NotesFormState extends State<NotesForm> {
                 child: FilledButton(
                   child: const Text('Salvar'),
                   onPressed: () {
-                    notesFormController.submitForm(widget.action, context);
+                    notesFormController.submitForm(
+                        widget.action, context, widget.id);
                   },
                 ),
               ),

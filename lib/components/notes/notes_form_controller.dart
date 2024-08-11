@@ -4,7 +4,6 @@ import 'package:appauth/classes/enum/notes_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import 'package:path/path.dart';
 
 class NotesFormController extends GetxController {
   final NoteRepository _noteRepository = NoteRepository();
@@ -23,11 +22,13 @@ class NotesFormController extends GetxController {
     descricaoController = TextEditingController();
   }
 
-  @override
-  void onClose() {
-    tituloController.dispose();
-    descricaoController.dispose();
-    super.onClose();
+  void clearValues() {
+    tituloController.clear();
+    descricaoController.clear();
+    tituloErrorText.value = null;
+    descricaoErrorText.value = null;
+    tituloError.value = false;
+    descricaoError.value = false;
   }
 
   void handleChangeTitulo(String value) {
@@ -85,16 +86,8 @@ class NotesFormController extends GetxController {
     }
   }
 
-  void clearValues() {
-    tituloController.clear();
-    descricaoController.clear();
-    tituloErrorText.value = null;
-    descricaoErrorText.value = null;
-    tituloError.value = false;
-    descricaoError.value = false;
-  }
-
-  Future<void> submitForm(FormAction action, BuildContext context) async {
+  Future<void> submitForm(
+      FormAction action, BuildContext context, int? id) async {
     validate();
     if (!tituloError.value && !descricaoError.value) {
       if (action == FormAction.gravar) {
@@ -105,6 +98,9 @@ class NotesFormController extends GetxController {
           clearValues();
           Get.snackbar('Sucesso', 'Nota salva com sucesso!',
               colorText: Colors.green);
+          if (context.mounted) {
+            GoRouter.of(context).go('/notes');
+          }
         } catch (err) {
           Get.snackbar('Erro', 'Falha ao gravar dados, motivo: $err',
               colorText: Colors.red);
@@ -113,6 +109,7 @@ class NotesFormController extends GetxController {
       if (action == FormAction.editar) {
         try {
           await _noteRepository.updateNote(NoteModel(
+              id: id,
               title: tituloController.text,
               description: descricaoController.text));
           Get.snackbar('Sucesso', 'Nota atualizada com sucesso!',
@@ -120,7 +117,7 @@ class NotesFormController extends GetxController {
           if (context.mounted) {
             GoRouter.of(context).go('/notes');
           }
-           clearValues();
+          clearValues();
         } catch (e) {
           Get.snackbar('Erro', 'Falha ao editar dados, motivo: $e',
               colorText: Colors.red);

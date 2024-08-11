@@ -28,9 +28,9 @@ class DatabaseHelper {
   }
 
   Future<List<Map<String, dynamic>>> query(String table,
-      {String? whereCause, List<dynamic>? whereArgs}) async {
+      {String? whereClause, List<dynamic>? whereArgs}) async {
     Database db = await database;
-    return await db.query(table);
+    return await db.query(table, where: whereClause, whereArgs: whereArgs);
   }
 
   Future<int> insert(String table, Map<String, dynamic> values) async {
@@ -39,10 +39,14 @@ class DatabaseHelper {
   }
 
   Future<int> update(String table, Map<String, dynamic> values,
-      String whereCause, List<dynamic> whereArgs) async {
+      String whereClause, List<dynamic> whereArgs) async {
     Database db = await database;
-    return await db.update(table, values,
-        where: whereCause, whereArgs: whereArgs);
+    return await db.update(
+      table,
+      values,
+      where: whereClause,
+      whereArgs: whereArgs,
+    );
   }
 
   Future<int> delete(

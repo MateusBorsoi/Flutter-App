@@ -20,6 +20,7 @@ class _AddNotaState extends State<AddNota> {
         body: NotesForm(
           action: FormAction.gravar,
           formTitle: 'Cadastrar nota',
+          floatingLabel: FloatingLabelBehavior.always,
         ));
   }
 }

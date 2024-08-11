@@ -15,9 +15,13 @@ class EditNota extends StatefulWidget {
 class _EditNotaState extends State<EditNota> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        appBar: AppDefaultBar(title: 'Editar Nota'),
-        drawer: MenuDrawer(title: 'Editar Nota'),
-        body: NotesForm(action: FormAction.editar, formTitle: 'Editar nota'));
+    return Scaffold(
+        appBar: const AppDefaultBar(title: 'Editar Nota'),
+        drawer: const MenuDrawer(title: 'Editar Nota'),
+        body: NotesForm(
+            action: FormAction.editar,
+            floatingLabel: FloatingLabelBehavior.auto,
+            formTitle: 'Editar nota',
+            id: widget.id));
   }
 }

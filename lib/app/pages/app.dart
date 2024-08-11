@@ -6,7 +6,6 @@ import 'package:appauth/app/pages/notes/edit_nota.dart';
 import 'package:appauth/app/pages/notes/notes.dart';
 import 'package:appauth/app/pages/todos/todo/todo.dart';
 import 'package:appauth/app/pages/todos/todos.dart';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

@@ -18,7 +18,7 @@ class NoteRepository {
 
   Future<NoteModel?> getNoteById(int id) async {
     final List<Map<String, dynamic>> maps = await _databaseHelper
-        .query('notes', whereCause: 'id = ?', whereArgs: [id]);
+        .query('notes', whereClause: 'id = ?', whereArgs: [id]);
     if (maps.isNotEmpty) {
       return NoteModel.fromMap(maps.first);
     }
